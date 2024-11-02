@@ -142,8 +142,7 @@ class HomePage extends HookConsumerWidget {
                           : null;
                       await ref
                           .read(postMessageControllerProvider)
-                          .postMessage(
-                              textController.text, imageFileToSend);
+                          .postMessage(textController.text, imageFileToSend);
 
                       if (!context.mounted) {
                         return;

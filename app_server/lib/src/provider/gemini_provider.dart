@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:app_server/src/config/prompt_message.dart';
 import 'package:app_server/src/generated/protocol.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:riverpod/riverpod.dart';
@@ -33,8 +34,7 @@ class GeminiProvider {
         history: history?.map((e) => e.toContent()).toList());
 
     // テキストパートを作成
-    final textPart = TextPart(content);
-
+    final textPart = TextPart(promptMessage + content);
     // 画像がある場合、DataPartとして作成
     if (image != null) {
       Uint8List uint8Data = image.byteData!.buffer.asUint8List(
@@ -47,7 +47,7 @@ class GeminiProvider {
     }
 
     // テキストのみの場合
-    return chatSession.sendMessageStream(Content.text(content));
+    return chatSession.sendMessageStream(Content.text(promptMessage + content));
   }
 }
 
