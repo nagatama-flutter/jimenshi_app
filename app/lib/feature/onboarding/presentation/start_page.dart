@@ -1,3 +1,4 @@
+import 'package:app/gen/assets.gen.dart';
 import 'package:app/router/app_router.dart';
 import 'package:app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,11 @@ class StartPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: SizedBox(
               height: 200,
-              child: Placeholder(),
+              child: Assets.images.tower.image(),
             ),
           ),
           const SizedBox(height: 60),
