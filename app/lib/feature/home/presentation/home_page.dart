@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:app/data/prompt_message.dart';
 import 'package:app/feature/auth.dart';
 import 'package:app/feature/generative_ai/controller/post_message_controller.dart';
 import 'package:app/feature/generative_ai/presentation/widget/message_list.dart';
@@ -24,22 +23,6 @@ class HomePage extends HookConsumerWidget {
     final textController = useTextEditingController();
     final imageService = ImageService();
     final imageFile = useState<XFile?>(null);
-
-    // 初回ロード時に自動メッセージを送信する
-    // useEffect(() {
-    //   // 初回ロードかどうかを確認
-    //   if (conversationId == null) {
-    //     // 非同期処理を実行
-    //     Future.microtask(() async {
-    //       // 送信する初回メッセージの内容
-    //       const initialMessage = '自己紹介をしてください。';
-
-    //       // メッセージを送信
-    //       await ref.read(postMessageControllerProvider).postMessage(promptMessage, null);
-    //     });
-    //   }
-    //   return null;
-    // }, [conversationId]);
 
     return Scaffold(
       appBar: AppBar(
