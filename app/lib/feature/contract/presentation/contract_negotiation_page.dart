@@ -56,8 +56,19 @@ class ContractNegotiationPage extends HookConsumerWidget {
 
     ref.listen(audioFileProvider(conversationId), (_, audioFile) async {
       if (audioFile.isNotEmpty) {
-        videoController.play();
-        await ref.read(audioPlayControllerProvider).play(audioFile);
+        await ref.read(audioPlayControllerProvider).play(
+          audioFile,
+          onPlay: () {
+            if (context.mounted) {
+              videoController.play();
+            }
+          },
+          onPlayEnd: () {
+            if (context.mounted) {
+              videoController.pause();
+            }
+          },
+        );
       }
     });
 
