@@ -34,6 +34,9 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: ContractDecisionRoute.page),
             AutoRoute(page: ContractResultSuccessRoute.page),
             AutoRoute(page: ContractResultFailureRoute.page),
+            // For debug
+            AutoRoute(page: HomeRoute.page),
+            AutoRoute(page: ExampleRoute.page),
           ],
         ),
         AutoRoute(page: ExampleRoute.page),

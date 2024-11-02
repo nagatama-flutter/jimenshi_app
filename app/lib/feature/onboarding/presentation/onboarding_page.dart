@@ -25,6 +25,13 @@ class OnboardingPage extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.router.push(const HomeRoute());
+        },
+        child: const Icon(Icons.home),
+      ),
     );
   }
 }
