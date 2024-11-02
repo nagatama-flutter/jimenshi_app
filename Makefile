@@ -45,7 +45,7 @@ create-migration: ## Create a new migration using Serverpod CLI
 
 .PHONY: run/server
 run/server: ## Build and run the server using Docker, and apply migrations
-	cd app_server && docker compose up --build -d && fvm dart bin/main.dart --apply-migrations
+	cd app_server && docker compose up -d postgres redis -d && fvm dart bin/main.dart --apply-migrations
 
 .PHONY: stop/server
 stop/server: ## Stop the server and remove Docker containers

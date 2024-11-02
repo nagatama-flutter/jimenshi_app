@@ -13,6 +13,13 @@
       "request": "launch",
       "program": "app/lib/main.dart",
       "args": ["--dart-define=FLAVOR=development"]
+    },
+    {
+      "name": "Run debug development on Chrome",
+      "request": "launch",
+      "type": "dart",
+      "program": "app/lib/main.dart",
+      "args": ["-d", "chrome", "--dart-define=FLAVOR=development"]
     }
   ]
 }
