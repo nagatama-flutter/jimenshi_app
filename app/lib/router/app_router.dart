@@ -28,7 +28,8 @@ class AppRouter extends RootStackRouter {
           guards: [authRouteGuard],
           initial: true,
           children: [
-            AutoRoute(page: OnboardingRoute.page, initial: true),
+            AutoRoute(page: StartRoute.page, initial: true),
+            AutoRoute(page: OnboardingRoute.page),
             AutoRoute(page: StoryRoute.page),
             AutoRoute(page: ContractNegotiationRoute.page),
             AutoRoute(page: ContractDecisionRoute.page),

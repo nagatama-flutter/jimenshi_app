@@ -4,6 +4,7 @@ export 'feature/firebase.dart';
 export 'feature/generative_ai.dart';
 export 'feature/home.dart';
 export 'feature/image.dart';
+export 'feature/onboarding.dart';
 export 'feature/onborading.dart';
 export 'feature/root.dart';
 export 'feature/sentry.dart';

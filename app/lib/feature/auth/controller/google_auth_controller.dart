@@ -17,7 +17,7 @@ class GoogleAuthController {
     final result = await _ref.read(googleAuthUseCaseProvider).signIn();
 
     if (result && _context.mounted) {
-      _context.router.replaceAll([const HomeRoute()]);
+      _context.router.replaceAll([const StartRoute()]);
     }
   }
 }

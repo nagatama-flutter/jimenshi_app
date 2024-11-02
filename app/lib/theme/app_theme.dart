@@ -62,3 +62,10 @@ class AppThemeDataNotifier extends AutoDisposeNotifier<ThemeData> {
         iconTheme: IconThemeData(size: 18, weight: 600),
       );
 }
+
+extension TextThemeExtension on TextTheme {
+  TextStyle get text32Semibold => const TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.w600,
+      );
+}
