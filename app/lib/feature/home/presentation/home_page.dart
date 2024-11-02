@@ -140,9 +140,10 @@ class HomePage extends HookConsumerWidget {
                       final imageFileToSend = imageFile.value != null
                           ? File(imageFile.value!.path)
                           : null;
-                      await ref
-                          .read(postMessageControllerProvider)
-                          .postMessage(textController.text, imageFileToSend);
+                      await ref.read(postMessageControllerProvider).postMessage(
+                          conversationId!,
+                          textController.text,
+                          imageFileToSend);
 
                       if (!context.mounted) {
                         return;

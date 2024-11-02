@@ -6,7 +6,7 @@ import 'package:app/feature/contract/presentation.dart';
 import 'package:app/router/guard/auth_guard.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:flutter/material.dart';
 part 'app_router.gr.dart';
 
 final appRouterProvider = Provider.autoDispose<RootStackRouter>(
