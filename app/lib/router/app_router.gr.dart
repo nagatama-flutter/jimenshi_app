@@ -114,44 +114,6 @@ class ContractResultSuccessRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [ExamplePage]
-class ExampleRoute extends PageRouteInfo<void> {
-  const ExampleRoute({List<PageRouteInfo>? children})
-      : super(
-          ExampleRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ExampleRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const ExamplePage();
-    },
-  );
-}
-
-/// generated route for
-/// [HomePage]
-class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute({List<PageRouteInfo>? children})
-      : super(
-          HomeRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'HomeRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const HomePage();
-    },
-  );
-}
-
-/// generated route for
 /// [OnboardingPage]
 class OnboardingRoute extends PageRouteInfo<void> {
   const OnboardingRoute({List<PageRouteInfo>? children})

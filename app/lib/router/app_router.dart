@@ -1,4 +1,3 @@
-import 'package:app/feature/home/presentation.dart';
 import 'package:app/feature/root/presentation.dart';
 import 'package:app/feature/auth/presentation.dart';
 import 'package:app/feature/onboarding/presentation.dart';
@@ -35,12 +34,8 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: ContractDecisionRoute.page),
             AutoRoute(page: ContractResultSuccessRoute.page),
             AutoRoute(page: ContractResultFailureRoute.page),
-            // For debug
-            AutoRoute(page: HomeRoute.page),
-            AutoRoute(page: ExampleRoute.page),
           ],
         ),
-        AutoRoute(page: ExampleRoute.page),
         AutoRoute(page: SignInRoute.page),
         AutoRoute(page: SignUpRoute.page),
       ];

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:app/data.dart';
-import 'package:app/feature/generative_ai/state/current_conversation_id_notifier.dart';
 import 'package:client/sample_pod_client.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -67,27 +66,6 @@ class PostMessageController {
         return 'image/gif';
       default:
         return null;
-    }
-  }
-
-  Future<int> _startConversation() async {
-    try {
-      final conversation = await _ref
-          .read(serverpodClientProvider)
-          .generativeAI
-          .startConversation();
-
-      final id = conversation.id;
-      if (id == null) {
-        // TODO: Handle error
-        throw Exception('Conversation ID is null');
-      }
-
-      _ref.read(currentConversationIdProvider.notifier).update(id);
-      return id;
-    } catch (e) {
-      // TODO: Handle error
-      rethrow;
     }
   }
 }
