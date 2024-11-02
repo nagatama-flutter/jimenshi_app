@@ -3,6 +3,9 @@ import 'package:app_server/src/generated/protocol.dart';
 import 'package:app_server/src/provider/gemini_provider.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:serverpod/serverpod.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:app_server/src/config/config.dart';
 
 class GenerativeAIEndpoint extends Endpoint {
   @override
@@ -67,6 +70,32 @@ class GenerativeAIEndpoint extends Endpoint {
     }
 
     return result.messages ?? [];
+  }
+
+  Future<String> tts(String text) async {
+    final endpoint = ProviderContainer().read(configProvider).ttsApuEndpoint;
+    final token = ProviderContainer().read(configProvider).ttsApiToken;
+    print('access to $endpoint');
+    final response = await http.post(
+      Uri.parse(endpoint),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': token
+      },
+      body: jsonEncode({
+        'text': text,
+      }),
+    );
+    if (response.statusCode == 200) {
+      var result = jsonDecode(response.body);
+      print('Text to speech: ${result['speech']}');
+      return result['speech'];
+    } else {
+      print('Failed to create speech audio.');
+      print('status: ${response.statusCode}');
+      print('body: ${response.body}');
+      throw Exception('Failed to create speech audio.');
+    }
   }
 
   @override
@@ -149,6 +178,12 @@ class GenerativeAIEndpoint extends Endpoint {
             session,
             outputMessage.copyWith(content: content),
           );
+
+          // テキストを音声へ変換しURLを取得
+          final audioUrl = await tts(content);
+
+          print('audio url: $audioUrl');
+          // TODO クライアントにWebSocketで通知して、クライアント側で音声を再生
         },
       );
     } else {
@@ -181,8 +216,7 @@ extension on List<GenerativeAIMessage> {
 extension on GenerativeAIMessage {
   HistoryContent toHistoryContent() {
     return switch (messageType) {
-      GenerativeAIMessageType.input =>
-        HistoryContent(content, true, image),
+      GenerativeAIMessageType.input => HistoryContent(content, true, image),
       GenerativeAIMessageType.output => HistoryContent(content, false),
     };
   }

@@ -9,6 +9,7 @@ environment:
 dependencies:
   dotenv: ^4.2.0
   google_generative_ai: ^0.4.6
+  http: ^1.2.2
   riverpod: ^2.5.1
   sentry: ^8.9.0
   serverpod: 2.1.4

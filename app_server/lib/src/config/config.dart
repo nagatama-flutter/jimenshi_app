@@ -12,15 +12,31 @@ final configProvider = Provider<Config>((_) {
     throw Exception('SENTRY_DSN is not set');
   });
 
-  return Config(geminiAPIKey: geminiAPIKey, sentryDsn: sentryDsn);
+  final ttsApuEndpoint = env.getOrElse('TTS_API_ENDPOINT', () {
+    throw Exception('TTS_API_ENDPOINT is not set');
+  });
+
+  final ttsApiToken = env.getOrElse('TTS_API_TOKEN', () {
+    throw Exception('TTS_API_TOKEN is not set');
+  });
+
+  return Config(
+      geminiAPIKey: geminiAPIKey,
+      sentryDsn: sentryDsn,
+      ttsApuEndpoint: ttsApuEndpoint,
+      ttsApiToken: ttsApiToken);
 });
 
 class Config {
   final String geminiAPIKey;
   final String sentryDsn;
+  final String ttsApuEndpoint;
+  final String ttsApiToken;
 
   const Config({
     required this.geminiAPIKey,
     required this.sentryDsn,
+    required this.ttsApuEndpoint,
+    required this.ttsApiToken,
   });
 }
