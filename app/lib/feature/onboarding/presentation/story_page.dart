@@ -1,3 +1,4 @@
+import 'package:app/data/story.dart';
 import 'package:app/feature/generative_ai/controller.dart';
 import 'package:app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class StoryPage extends ConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     const Text(
-                      'ここにストーリーが入ります。ここにストーリーが入ります。ここにストーリーが入ります。ここにストーリーが入ります。ここにストーリーが入ります。ここにストーリーが入ります。ここにストーリーが入ります。ここにストーリーが入ります。ここにストーリーが入ります。ここにストーリーが入ります。',
+                      introductionSimazaki,
                     ),
                   ],
                 ),
