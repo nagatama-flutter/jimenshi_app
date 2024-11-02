@@ -10,7 +10,7 @@ class MessageBubble extends StatelessWidget {
     super.key,
     required this.message,
     required this.isMine,
-    this.opacity = 0.55,
+    this.opacity = 1,
     this.maxWidth = 220,
   });
 
@@ -26,10 +26,10 @@ class MessageBubble extends StatelessWidget {
               maxWidth != null ? BoxConstraints(maxWidth: maxWidth!) : null,
           decoration: BoxDecoration(
             color: isMine
-                ? Colors.green.withOpacity(0.45)
+                ? Colors.green.withOpacity(1)
                 : opacity == 1
                     ? Colors.white
-                    : Colors.black.withOpacity(0.05),
+                    : Colors.black.withOpacity(1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(

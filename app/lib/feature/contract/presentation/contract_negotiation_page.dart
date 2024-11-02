@@ -1,9 +1,11 @@
+import 'package:app/gen/assets.gen.dart';
 import 'package:app/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:app/theme.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:video_player/video_player.dart';
 import 'package:app/feature/contract/presentation/widget/message_bubble.dart';
 import 'package:app/feature/generative_ai/state.dart';
 import 'package:app/feature/generative_ai/domain.dart';
@@ -24,6 +26,26 @@ class ContractNegotiationPage extends HookConsumerWidget {
     final scrollController = useScrollController();
     final focusNode = useFocusNode();
     final textEditingController = useTextEditingController();
+    // VideoPlayerControllerの初期化
+    final videoController = useMemoized(() {
+      final controller = VideoPlayerController.asset(
+        Assets.videos.simazakiNormal,
+      );
+      controller.initialize().then((_) {
+        controller
+          ..setLooping(false)
+          ..setVolume(0.0)
+          ..pause();
+      });
+      return controller;
+    });
+
+    // VideoPlayerControllerの破棄
+    useEffect(() {
+      return () {
+        videoController.dispose();
+      };
+    }, [videoController]);
 
     ref.listen(messageListProvider(conversationId), (_, __) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -45,6 +67,20 @@ class ContractNegotiationPage extends HookConsumerWidget {
               Expanded(
                 child: Stack(
                   children: [
+                    // 背景動画
+                    Positioned.fill(
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: SizedBox(
+                          width: videoController.value.size.width,
+                          height: videoController.value.size.height,
+                          child: VideoPlayer(videoController),
+                        ),
+                      ),
+                    ),
+                    const Center(
+                      child: Text(""),
+                    ),
                     messages.maybeWhen(
                       data: (messages) {
                         if (messages.isEmpty) {
@@ -77,9 +113,6 @@ class ContractNegotiationPage extends HookConsumerWidget {
                         );
                       },
                       orElse: () => const SizedBox.shrink(),
-                    ),
-                    const Center(
-                      child: Text("ContractNegotiationPage"),
                     ),
                   ],
                 ),
