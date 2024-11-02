@@ -1,5 +1,8 @@
-import 'package:app/feature/auth/presentation.dart';
 import 'package:app/feature/home/presentation.dart';
+import 'package:app/feature/root/presentation.dart';
+import 'package:app/feature/auth/presentation.dart';
+import 'package:app/feature/onboarding/presentation.dart';
+import 'package:app/feature/contract/presentation.dart';
 import 'package:app/router/guard/auth_guard.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,10 +23,23 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
+        // AutoRoute(
+        //   page: HomeRoute.page,
+        //   guards: [authRouteGuard],
+        //   initial: true,
+        // ),
         AutoRoute(
-          page: HomeRoute.page,
+          page: RootRoute.page,
           guards: [authRouteGuard],
           initial: true,
+          children: [
+            AutoRoute(page: OnboardingRoute.page, initial: true),
+            AutoRoute(page: StoryRoute.page),
+            AutoRoute(page: ContractNegotiationRoute.page),
+            AutoRoute(page: ContractDecisionRoute.page),
+            AutoRoute(page: ContractResultSuccessRoute.page),
+            AutoRoute(page: ContractResultFailureRoute.page),
+          ],
         ),
         AutoRoute(page: ExampleRoute.page),
         AutoRoute(page: SignInRoute.page),
