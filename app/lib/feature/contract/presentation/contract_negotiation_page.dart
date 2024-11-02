@@ -1,3 +1,4 @@
+import 'package:app/feature/contract/controller/audio_play_controller.dart';
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/router/app_router.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class ContractNegotiationPage extends HookConsumerWidget {
     final messages = ref.watch(messageListProvider(conversationId));
     final isDisplayingCutIn =
         ref.watch(isDisplayingCutInProvider(conversationId));
+    // final audioFile = ref.watch(audioFileProvider(conversationId));
 
     final scrollController = useScrollController();
     final focusNode = useFocusNode();
@@ -30,7 +32,9 @@ class ContractNegotiationPage extends HookConsumerWidget {
     final videoController = useMemoized(() {
       final controller = VideoPlayerController.asset(
         Assets.videos.simazakiNormal,
+        videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
       );
+
       controller.initialize().then((_) {
         controller
           ..setLooping(false)
@@ -51,6 +55,13 @@ class ContractNegotiationPage extends HookConsumerWidget {
       focusNode.unfocus();
     });
 
+    ref.listen(audioFileProvider(conversationId), (_, audioFile) async {
+      if (audioFile.isNotEmpty) {
+        videoController.play();
+        await ref.read(audioPlayControllerProvider).play(audioFile);
+      }
+    });
+
     ref.listen(messageListProvider(conversationId), (_, __) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (scrollController.hasClients) {
@@ -67,6 +78,7 @@ class ContractNegotiationPage extends HookConsumerWidget {
       body: Stack(
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
                 child: Stack(
@@ -81,9 +93,6 @@ class ContractNegotiationPage extends HookConsumerWidget {
                           child: VideoPlayer(videoController),
                         ),
                       ),
-                    ),
-                    const Center(
-                      child: Text(""),
                     ),
                     messages.maybeWhen(
                       data: (messages) {
