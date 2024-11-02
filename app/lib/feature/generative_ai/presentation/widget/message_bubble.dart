@@ -16,7 +16,17 @@ class MessageBubble extends StatelessWidget {
           decoration: message.decoration,
           child: Padding(
             padding: const EdgeInsets.all(8),
-            child: SelectableText(message.content),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (message.imageData != null)
+                  Image.memory(
+                    message.imageData!,
+                    fit: BoxFit.cover,
+                  ),
+                SelectableText(message.content),
+              ],
+            ),
           ),
         ),
       ),

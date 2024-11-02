@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:app/data.dart';
 import 'package:app/feature/generative_ai/state/current_conversation_id_notifier.dart';
 import 'package:client/sample_pod_client.dart';
@@ -12,7 +15,7 @@ class PostMessageController {
 
   const PostMessageController(this._ref);
 
-  Future<void> postMessage(String text) async {
+  Future<void> postMessage(String text, File? imageFile) async {
     final conversationId =
         _ref.read(currentConversationIdProvider) ?? await _startConversation();
 
@@ -22,16 +25,50 @@ class PostMessageController {
 
     try {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await _ref.read(serverpodClientProvider).generativeAI.sendStreamMessage(
-              GenerativeAIMessageRequest(
-                conversationId: conversationId,
-                content: text,
-              ),
-            );
+        // Image オブジェクトを作成
+        GenerativeAIImage? image;
+        if (imageFile != null) {
+          final imageBytes = await imageFile.readAsBytes();
+          final mimeType = getMimeType(imageFile.path);
+          final imageByteData = ByteData.view(imageBytes.buffer);
+          image = GenerativeAIImage(
+            byteData: imageByteData,
+            mimeType: mimeType,
+          );
+        }
+
+        // メッセージリクエストを作成
+        final request = GenerativeAIMessageRequest(
+          conversationId: conversationId,
+          content: text,
+          image: image,
+        );
+
+        // メッセージを送信
+        await _ref
+            .read(serverpodClientProvider)
+            .generativeAI
+            .sendStreamMessage(request);
       });
     } catch (e) {
       // TODO: Handle error
       rethrow;
+    }
+  }
+
+  // MIMEタイプを取得するヘルパーメソッド
+  String? getMimeType(String filePath) {
+    final extension = filePath.split('.').last.toLowerCase();
+    switch (extension) {
+      case 'jpg':
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'png':
+        return 'image/png';
+      case 'gif':
+        return 'image/gif';
+      default:
+        return null;
     }
   }
 
@@ -45,7 +82,7 @@ class PostMessageController {
       final id = conversation.id;
       if (id == null) {
         // TODO: Handle error
-        throw Exception();
+        throw Exception('Conversation ID is null');
       }
 
       _ref.read(currentConversationIdProvider.notifier).update(id);

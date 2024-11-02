@@ -1,0 +1,4 @@
+class: GenerativeAIImage
+fields:
+  byteData: ByteData?
+  mimeType: String?

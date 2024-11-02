@@ -10,17 +10,20 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
+import '../protocol.dart' as _i2;
 
 abstract class GenerativeAIMessageRequest
     implements _i1.SerializableModel, _i1.ProtocolSerialization {
   GenerativeAIMessageRequest._({
     required this.conversationId,
     required this.content,
+    this.image,
   });
 
   factory GenerativeAIMessageRequest({
     required int conversationId,
     required String content,
+    _i2.GenerativeAIImage? image,
   }) = _GenerativeAIMessageRequestImpl;
 
   factory GenerativeAIMessageRequest.fromJson(
@@ -28,6 +31,10 @@ abstract class GenerativeAIMessageRequest
     return GenerativeAIMessageRequest(
       conversationId: jsonSerialization['conversationId'] as int,
       content: jsonSerialization['content'] as String,
+      image: jsonSerialization['image'] == null
+          ? null
+          : _i2.GenerativeAIImage.fromJson(
+              (jsonSerialization['image'] as Map<String, dynamic>)),
     );
   }
 
@@ -35,15 +42,19 @@ abstract class GenerativeAIMessageRequest
 
   String content;
 
+  _i2.GenerativeAIImage? image;
+
   GenerativeAIMessageRequest copyWith({
     int? conversationId,
     String? content,
+    _i2.GenerativeAIImage? image,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       'conversationId': conversationId,
       'content': content,
+      if (image != null) 'image': image?.toJson(),
     };
   }
 
@@ -52,6 +63,7 @@ abstract class GenerativeAIMessageRequest
     return {
       'conversationId': conversationId,
       'content': content,
+      if (image != null) 'image': image?.toJsonForProtocol(),
     };
   }
 
@@ -61,23 +73,29 @@ abstract class GenerativeAIMessageRequest
   }
 }
 
+class _Undefined {}
+
 class _GenerativeAIMessageRequestImpl extends GenerativeAIMessageRequest {
   _GenerativeAIMessageRequestImpl({
     required int conversationId,
     required String content,
+    _i2.GenerativeAIImage? image,
   }) : super._(
           conversationId: conversationId,
           content: content,
+          image: image,
         );
 
   @override
   GenerativeAIMessageRequest copyWith({
     int? conversationId,
     String? content,
+    Object? image = _Undefined,
   }) {
     return GenerativeAIMessageRequest(
       conversationId: conversationId ?? this.conversationId,
       content: content ?? this.content,
+      image: image is _i2.GenerativeAIImage? ? image : this.image?.copyWith(),
     );
   }
 }

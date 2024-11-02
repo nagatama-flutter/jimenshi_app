@@ -6,4 +6,5 @@ fields:
   aiModelName: String
   messageType: GenerativeAIMessageType
   content: String
+  image: GenerativeAIImage?
   createdAt: DateTime, default=now

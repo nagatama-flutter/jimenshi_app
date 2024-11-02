@@ -21,6 +21,7 @@ abstract class GenerativeAIMessage
     required this.aiModelName,
     required this.messageType,
     required this.content,
+    this.image,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
@@ -31,6 +32,7 @@ abstract class GenerativeAIMessage
     required String aiModelName,
     required _i2.GenerativeAIMessageType messageType,
     required String content,
+    _i2.GenerativeAIImage? image,
     DateTime? createdAt,
   }) = _GenerativeAIMessageImpl;
 
@@ -44,6 +46,10 @@ abstract class GenerativeAIMessage
       messageType: _i2.GenerativeAIMessageType.fromJson(
           (jsonSerialization['messageType'] as String)),
       content: jsonSerialization['content'] as String,
+      image: jsonSerialization['image'] == null
+          ? null
+          : _i2.GenerativeAIImage.fromJson(
+              (jsonSerialization['image'] as Map<String, dynamic>)),
       createdAt:
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['createdAt']),
     );
@@ -66,6 +72,8 @@ abstract class GenerativeAIMessage
 
   String content;
 
+  _i2.GenerativeAIImage? image;
+
   DateTime createdAt;
 
   @override
@@ -78,6 +86,7 @@ abstract class GenerativeAIMessage
     String? aiModelName,
     _i2.GenerativeAIMessageType? messageType,
     String? content,
+    _i2.GenerativeAIImage? image,
     DateTime? createdAt,
   });
   @override
@@ -89,6 +98,7 @@ abstract class GenerativeAIMessage
       'aiModelName': aiModelName,
       'messageType': messageType.toJson(),
       'content': content,
+      if (image != null) 'image': image?.toJson(),
       'createdAt': createdAt.toJson(),
     };
   }
@@ -102,6 +112,7 @@ abstract class GenerativeAIMessage
       'aiModelName': aiModelName,
       'messageType': messageType.toJson(),
       'content': content,
+      if (image != null) 'image': image?.toJsonForProtocol(),
       'createdAt': createdAt.toJson(),
     };
   }
@@ -146,6 +157,7 @@ class _GenerativeAIMessageImpl extends GenerativeAIMessage {
     required String aiModelName,
     required _i2.GenerativeAIMessageType messageType,
     required String content,
+    _i2.GenerativeAIImage? image,
     DateTime? createdAt,
   }) : super._(
           id: id,
@@ -154,6 +166,7 @@ class _GenerativeAIMessageImpl extends GenerativeAIMessage {
           aiModelName: aiModelName,
           messageType: messageType,
           content: content,
+          image: image,
           createdAt: createdAt,
         );
 
@@ -165,6 +178,7 @@ class _GenerativeAIMessageImpl extends GenerativeAIMessage {
     String? aiModelName,
     _i2.GenerativeAIMessageType? messageType,
     String? content,
+    Object? image = _Undefined,
     DateTime? createdAt,
   }) {
     return GenerativeAIMessage(
@@ -174,6 +188,7 @@ class _GenerativeAIMessageImpl extends GenerativeAIMessage {
       aiModelName: aiModelName ?? this.aiModelName,
       messageType: messageType ?? this.messageType,
       content: content ?? this.content,
+      image: image is _i2.GenerativeAIImage? ? image : this.image?.copyWith(),
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -203,6 +218,10 @@ class GenerativeAIMessageTable extends _i1.Table {
       'content',
       this,
     );
+    image = _i1.ColumnSerializable(
+      'image',
+      this,
+    );
     createdAt = _i1.ColumnDateTime(
       'createdAt',
       this,
@@ -220,6 +239,8 @@ class GenerativeAIMessageTable extends _i1.Table {
 
   late final _i1.ColumnString content;
 
+  late final _i1.ColumnSerializable image;
+
   late final _i1.ColumnDateTime createdAt;
 
   @override
@@ -230,6 +251,7 @@ class GenerativeAIMessageTable extends _i1.Table {
         aiModelName,
         messageType,
         content,
+        image,
         createdAt,
       ];
 }

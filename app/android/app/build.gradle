@@ -27,10 +27,13 @@ android {
         applicationId = "com.example.sample_pod_flutter"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // Googleサインインに必要な依存関係
+        multiDexEnabled true  // 必要に応じてマルチDexを有効化
     }
 
     buildTypes {
@@ -44,4 +47,12 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:33.4.0') // FirebaseのBOM（バージョン管理用）
+
+    // Google サインインに必要な依存関係
+    implementation 'com.google.firebase:firebase-auth'  // Firebase Authentication
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'  // Google サインイン用
 }

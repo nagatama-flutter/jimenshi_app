@@ -18,19 +18,21 @@ import 'error/invalid_argument.dart' as _i5;
 import 'error/unauthenticated.dart' as _i6;
 import 'example.dart' as _i7;
 import 'generative_ai/generative_ai_conversation.dart' as _i8;
-import 'generative_ai/generative_ai_message.dart' as _i9;
-import 'generative_ai/generative_ai_message_request.dart' as _i10;
-import 'generative_ai/generative_ai_message_type.dart' as _i11;
-import 'protocol.dart' as _i12;
+import 'generative_ai/generative_ai_image.dart' as _i9;
+import 'generative_ai/generative_ai_message.dart' as _i10;
+import 'generative_ai/generative_ai_message_request.dart' as _i11;
+import 'generative_ai/generative_ai_message_type.dart' as _i12;
+import 'protocol.dart' as _i13;
 import 'package:app_server/src/generated/generative_ai/generative_ai_conversation.dart'
-    as _i13;
-import 'package:app_server/src/generated/generative_ai/generative_ai_message.dart'
     as _i14;
+import 'package:app_server/src/generated/generative_ai/generative_ai_message.dart'
+    as _i15;
 export 'error/internal_error.dart';
 export 'error/invalid_argument.dart';
 export 'error/unauthenticated.dart';
 export 'example.dart';
 export 'generative_ai/generative_ai_conversation.dart';
+export 'generative_ai/generative_ai_image.dart';
 export 'generative_ai/generative_ai_message.dart';
 export 'generative_ai/generative_ai_message_request.dart';
 export 'generative_ai/generative_ai_message_type.dart';
@@ -150,6 +152,12 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'String',
         ),
         _i2.ColumnDefinition(
+          name: 'image',
+          columnType: _i2.ColumnType.json,
+          isNullable: true,
+          dartType: 'protocol:GenerativeAIImage?',
+        ),
+        _i2.ColumnDefinition(
           name: 'createdAt',
           columnType: _i2.ColumnType.timestampWithoutTimeZone,
           isNullable: false,
@@ -211,14 +219,17 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i8.GenerativeAIConversation) {
       return _i8.GenerativeAIConversation.fromJson(data) as T;
     }
-    if (t == _i9.GenerativeAIMessage) {
-      return _i9.GenerativeAIMessage.fromJson(data) as T;
+    if (t == _i9.GenerativeAIImage) {
+      return _i9.GenerativeAIImage.fromJson(data) as T;
     }
-    if (t == _i10.GenerativeAIMessageRequest) {
-      return _i10.GenerativeAIMessageRequest.fromJson(data) as T;
+    if (t == _i10.GenerativeAIMessage) {
+      return _i10.GenerativeAIMessage.fromJson(data) as T;
     }
-    if (t == _i11.GenerativeAIMessageType) {
-      return _i11.GenerativeAIMessageType.fromJson(data) as T;
+    if (t == _i11.GenerativeAIMessageRequest) {
+      return _i11.GenerativeAIMessageRequest.fromJson(data) as T;
+    }
+    if (t == _i12.GenerativeAIMessageType) {
+      return _i12.GenerativeAIMessageType.fromJson(data) as T;
     }
     if (t == _i1.getType<_i4.InternalError?>()) {
       return (data != null ? _i4.InternalError.fromJson(data) : null) as T;
@@ -236,34 +247,37 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data != null ? _i8.GenerativeAIConversation.fromJson(data) : null)
           as T;
     }
-    if (t == _i1.getType<_i9.GenerativeAIMessage?>()) {
-      return (data != null ? _i9.GenerativeAIMessage.fromJson(data) : null)
+    if (t == _i1.getType<_i9.GenerativeAIImage?>()) {
+      return (data != null ? _i9.GenerativeAIImage.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i10.GenerativeAIMessage?>()) {
+      return (data != null ? _i10.GenerativeAIMessage.fromJson(data) : null)
           as T;
     }
-    if (t == _i1.getType<_i10.GenerativeAIMessageRequest?>()) {
+    if (t == _i1.getType<_i11.GenerativeAIMessageRequest?>()) {
       return (data != null
-          ? _i10.GenerativeAIMessageRequest.fromJson(data)
+          ? _i11.GenerativeAIMessageRequest.fromJson(data)
           : null) as T;
     }
-    if (t == _i1.getType<_i11.GenerativeAIMessageType?>()) {
-      return (data != null ? _i11.GenerativeAIMessageType.fromJson(data) : null)
+    if (t == _i1.getType<_i12.GenerativeAIMessageType?>()) {
+      return (data != null ? _i12.GenerativeAIMessageType.fromJson(data) : null)
           as T;
     }
-    if (t == _i1.getType<List<_i12.GenerativeAIMessage>?>()) {
+    if (t == _i1.getType<List<_i13.GenerativeAIMessage>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i12.GenerativeAIMessage>(e))
+              .map((e) => deserialize<_i13.GenerativeAIMessage>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == List<_i13.GenerativeAIConversation>) {
+    if (t == List<_i14.GenerativeAIConversation>) {
       return (data as List)
-          .map((e) => deserialize<_i13.GenerativeAIConversation>(e))
+          .map((e) => deserialize<_i14.GenerativeAIConversation>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i14.GenerativeAIMessage>) {
+    if (t == List<_i15.GenerativeAIMessage>) {
       return (data as List)
-          .map((e) => deserialize<_i14.GenerativeAIMessage>(e))
+          .map((e) => deserialize<_i15.GenerativeAIMessage>(e))
           .toList() as dynamic;
     }
     try {
@@ -294,13 +308,16 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i8.GenerativeAIConversation) {
       return 'GenerativeAIConversation';
     }
-    if (data is _i9.GenerativeAIMessage) {
+    if (data is _i9.GenerativeAIImage) {
+      return 'GenerativeAIImage';
+    }
+    if (data is _i10.GenerativeAIMessage) {
       return 'GenerativeAIMessage';
     }
-    if (data is _i10.GenerativeAIMessageRequest) {
+    if (data is _i11.GenerativeAIMessageRequest) {
       return 'GenerativeAIMessageRequest';
     }
-    if (data is _i11.GenerativeAIMessageType) {
+    if (data is _i12.GenerativeAIMessageType) {
       return 'GenerativeAIMessageType';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -331,14 +348,17 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'GenerativeAIConversation') {
       return deserialize<_i8.GenerativeAIConversation>(data['data']);
     }
+    if (data['className'] == 'GenerativeAIImage') {
+      return deserialize<_i9.GenerativeAIImage>(data['data']);
+    }
     if (data['className'] == 'GenerativeAIMessage') {
-      return deserialize<_i9.GenerativeAIMessage>(data['data']);
+      return deserialize<_i10.GenerativeAIMessage>(data['data']);
     }
     if (data['className'] == 'GenerativeAIMessageRequest') {
-      return deserialize<_i10.GenerativeAIMessageRequest>(data['data']);
+      return deserialize<_i11.GenerativeAIMessageRequest>(data['data']);
     }
     if (data['className'] == 'GenerativeAIMessageType') {
-      return deserialize<_i11.GenerativeAIMessageType>(data['data']);
+      return deserialize<_i12.GenerativeAIMessageType>(data['data']);
     }
     if (data['className'].startsWith('serverpod.')) {
       data['className'] = data['className'].substring(10);
@@ -368,8 +388,8 @@ class Protocol extends _i1.SerializationManagerServer {
     switch (t) {
       case _i8.GenerativeAIConversation:
         return _i8.GenerativeAIConversation.t;
-      case _i9.GenerativeAIMessage:
-        return _i9.GenerativeAIMessage.t;
+      case _i10.GenerativeAIMessage:
+        return _i10.GenerativeAIMessage.t;
     }
     return null;
   }

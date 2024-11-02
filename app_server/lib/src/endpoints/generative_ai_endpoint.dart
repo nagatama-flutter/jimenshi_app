@@ -88,6 +88,7 @@ class GenerativeAIEndpoint extends Endpoint {
           aiModelName: modelName,
           messageType: GenerativeAIMessageType.input,
           content: message.content,
+          image: message.image,
         ),
       );
 
@@ -101,6 +102,7 @@ class GenerativeAIEndpoint extends Endpoint {
       final stream = await container.read(geminiProvider).sendMessage(
             message.content,
             history: histories.toHistoryContentList(),
+            image: message.image,
           );
 
       final outputMessage = await GenerativeAIMessage.db.insertRow(
@@ -179,7 +181,8 @@ extension on List<GenerativeAIMessage> {
 extension on GenerativeAIMessage {
   HistoryContent toHistoryContent() {
     return switch (messageType) {
-      GenerativeAIMessageType.input => HistoryContent(content, true),
+      GenerativeAIMessageType.input =>
+        HistoryContent(content, true, image),
       GenerativeAIMessageType.output => HistoryContent(content, false),
     };
   }

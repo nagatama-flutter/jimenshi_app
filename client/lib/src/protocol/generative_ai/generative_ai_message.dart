@@ -20,6 +20,7 @@ abstract class GenerativeAIMessage implements _i1.SerializableModel {
     required this.aiModelName,
     required this.messageType,
     required this.content,
+    this.image,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
@@ -30,6 +31,7 @@ abstract class GenerativeAIMessage implements _i1.SerializableModel {
     required String aiModelName,
     required _i2.GenerativeAIMessageType messageType,
     required String content,
+    _i2.GenerativeAIImage? image,
     DateTime? createdAt,
   }) = _GenerativeAIMessageImpl;
 
@@ -43,6 +45,10 @@ abstract class GenerativeAIMessage implements _i1.SerializableModel {
       messageType: _i2.GenerativeAIMessageType.fromJson(
           (jsonSerialization['messageType'] as String)),
       content: jsonSerialization['content'] as String,
+      image: jsonSerialization['image'] == null
+          ? null
+          : _i2.GenerativeAIImage.fromJson(
+              (jsonSerialization['image'] as Map<String, dynamic>)),
       createdAt:
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['createdAt']),
     );
@@ -63,6 +69,8 @@ abstract class GenerativeAIMessage implements _i1.SerializableModel {
 
   String content;
 
+  _i2.GenerativeAIImage? image;
+
   DateTime createdAt;
 
   GenerativeAIMessage copyWith({
@@ -72,6 +80,7 @@ abstract class GenerativeAIMessage implements _i1.SerializableModel {
     String? aiModelName,
     _i2.GenerativeAIMessageType? messageType,
     String? content,
+    _i2.GenerativeAIImage? image,
     DateTime? createdAt,
   });
   @override
@@ -83,6 +92,7 @@ abstract class GenerativeAIMessage implements _i1.SerializableModel {
       'aiModelName': aiModelName,
       'messageType': messageType.toJson(),
       'content': content,
+      if (image != null) 'image': image?.toJson(),
       'createdAt': createdAt.toJson(),
     };
   }
@@ -103,6 +113,7 @@ class _GenerativeAIMessageImpl extends GenerativeAIMessage {
     required String aiModelName,
     required _i2.GenerativeAIMessageType messageType,
     required String content,
+    _i2.GenerativeAIImage? image,
     DateTime? createdAt,
   }) : super._(
           id: id,
@@ -111,6 +122,7 @@ class _GenerativeAIMessageImpl extends GenerativeAIMessage {
           aiModelName: aiModelName,
           messageType: messageType,
           content: content,
+          image: image,
           createdAt: createdAt,
         );
 
@@ -122,6 +134,7 @@ class _GenerativeAIMessageImpl extends GenerativeAIMessage {
     String? aiModelName,
     _i2.GenerativeAIMessageType? messageType,
     String? content,
+    Object? image = _Undefined,
     DateTime? createdAt,
   }) {
     return GenerativeAIMessage(
@@ -131,6 +144,7 @@ class _GenerativeAIMessageImpl extends GenerativeAIMessage {
       aiModelName: aiModelName ?? this.aiModelName,
       messageType: messageType ?? this.messageType,
       content: content ?? this.content,
+      image: image is _i2.GenerativeAIImage? ? image : this.image?.copyWith(),
       createdAt: createdAt ?? this.createdAt,
     );
   }

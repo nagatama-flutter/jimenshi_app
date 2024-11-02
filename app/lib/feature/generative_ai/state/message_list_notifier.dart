@@ -50,7 +50,8 @@ class MessageListNotifier
 extension on GenerativeAIMessage {
   Message toMessage() {
     return switch (messageType) {
-      GenerativeAIMessageType.input => InputMessage(id, content),
+      GenerativeAIMessageType.input =>
+        InputMessage(id, content, image?.byteData?.buffer.asUint8List()),
       GenerativeAIMessageType.output => GeneratedMessage(id, content),
     };
   }
