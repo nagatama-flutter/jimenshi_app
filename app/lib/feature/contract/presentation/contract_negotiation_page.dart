@@ -4,14 +4,35 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:app/feature/contract/presentation/widget/message_bubble.dart';
+import 'package:app/feature/generative_ai/state.dart';
+import 'package:app/feature/generative_ai/domain.dart';
+import 'package:app/feature/generative_ai/controller.dart';
 
 @RoutePage()
 class ContractNegotiationPage extends HookConsumerWidget {
-  const ContractNegotiationPage({super.key});
+  final int conversationId;
+
+  const ContractNegotiationPage({super.key, required this.conversationId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final messages = ref.watch(messageListProvider(conversationId));
+
+    final scrollController = useScrollController();
     final focusNode = useFocusNode();
+    final textEditingController = useTextEditingController();
+
+    ref.listen(messageListProvider(conversationId), (_, __) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (scrollController.hasClients) {
+          scrollController.animateTo(
+            scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 750),
+            curve: Curves.easeOutCirc,
+          );
+        }
+      });
+    });
 
     return Scaffold(
       body: Column(
@@ -19,22 +40,38 @@ class ContractNegotiationPage extends HookConsumerWidget {
           Expanded(
             child: Stack(
               children: [
-                Positioned.fill(
-                  left: 16,
-                  child: ListView.separated(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    reverse: true,
-                    itemBuilder: (context, index) {
-                      return MessageBubble(
-                        isMine: index % 2 == 0,
-                        message:
-                            "message messagemessagemessagemessagemessagemessagemessagemessagemessagemessagemessagemessage $index",
-                      );
-                    },
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 8),
-                    itemCount: 50,
-                  ),
+                messages.maybeWhen(
+                  data: (messages) {
+                    if (messages.isEmpty) {
+                      return const SizedBox.shrink();
+                    }
+
+                    final displayMessages = messages.reversed.toList();
+
+                    return Positioned.fill(
+                      left: 16,
+                      child: ListView.separated(
+                        controller: scrollController,
+                        padding: const EdgeInsets.only(bottom: 12),
+                        reverse: true,
+                        itemBuilder: (context, index) {
+                          final message = displayMessages[index];
+
+                          return MessageBubble(
+                            isMine: switch (message) {
+                              InputMessage() => true,
+                              GeneratedMessage() => false,
+                            },
+                            message: message.content,
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 8),
+                        itemCount: messages.length,
+                      ),
+                    );
+                  },
+                  orElse: () => const SizedBox.shrink(),
                 ),
                 const Center(
                   child: Text("ContractNegotiationPage"),
@@ -54,6 +91,7 @@ class ContractNegotiationPage extends HookConsumerWidget {
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxHeight: 160),
                       child: TextFormField(
+                        controller: textEditingController,
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
                         focusNode: focusNode,
@@ -65,8 +103,18 @@ class ContractNegotiationPage extends HookConsumerWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       focusNode.unfocus();
+                      if (textEditingController.text.isEmpty) {
+                        return;
+                      }
+
+                      await ref.read(postMessageControllerProvider).postMessage(
+                          conversationId, textEditingController.text, null);
+
+                      if (context.mounted) {
+                        textEditingController.clear();
+                      }
                     },
                     icon: const Icon(Icons.send),
                   ),

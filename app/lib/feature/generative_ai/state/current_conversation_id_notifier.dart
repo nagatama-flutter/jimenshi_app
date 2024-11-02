@@ -1,10 +1,13 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+/// 現在の会話IDを管理するプロバイダ
+///
+/// グローバルステートのため適切に管理してください
 final currentConversationIdProvider =
-    NotifierProvider.autoDispose<CurrentConversationIdNotifier, int?>(
+    NotifierProvider<CurrentConversationIdNotifier, int?>(
         CurrentConversationIdNotifier.new);
 
-class CurrentConversationIdNotifier extends AutoDisposeNotifier<int?> {
+class CurrentConversationIdNotifier extends Notifier<int?> {
   @override
   int? build() {
     return null;

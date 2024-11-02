@@ -30,10 +30,18 @@ class ContractDecisionRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ContractNegotiationPage]
-class ContractNegotiationRoute extends PageRouteInfo<void> {
-  const ContractNegotiationRoute({List<PageRouteInfo>? children})
-      : super(
+class ContractNegotiationRoute
+    extends PageRouteInfo<ContractNegotiationRouteArgs> {
+  ContractNegotiationRoute({
+    Key? key,
+    required int conversationId,
+    List<PageRouteInfo>? children,
+  }) : super(
           ContractNegotiationRoute.name,
+          args: ContractNegotiationRouteArgs(
+            key: key,
+            conversationId: conversationId,
+          ),
           initialChildren: children,
         );
 
@@ -42,9 +50,29 @@ class ContractNegotiationRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ContractNegotiationPage();
+      final args = data.argsAs<ContractNegotiationRouteArgs>();
+      return ContractNegotiationPage(
+        key: args.key,
+        conversationId: args.conversationId,
+      );
     },
   );
+}
+
+class ContractNegotiationRouteArgs {
+  const ContractNegotiationRouteArgs({
+    this.key,
+    required this.conversationId,
+  });
+
+  final Key? key;
+
+  final int conversationId;
+
+  @override
+  String toString() {
+    return 'ContractNegotiationRouteArgs{key: $key, conversationId: $conversationId}';
+  }
 }
 
 /// generated route for

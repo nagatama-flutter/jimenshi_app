@@ -15,10 +15,8 @@ class PostMessageController {
 
   const PostMessageController(this._ref);
 
-  Future<void> postMessage(String text, File? imageFile) async {
-    final conversationId =
-        _ref.read(currentConversationIdProvider) ?? await _startConversation();
-
+  Future<void> postMessage(
+      int conversationId, String text, File? imageFile) async {
     if (_ref.read(serverpodClientProvider).isStreamingDisconnected) {
       await _ref.read(serverpodClientProvider).openStreamingConnection();
     }

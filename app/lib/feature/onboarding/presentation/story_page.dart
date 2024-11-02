@@ -1,14 +1,15 @@
-import 'package:app/router/app_router.dart';
+import 'package:app/feature/generative_ai/controller.dart';
 import 'package:app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 @RoutePage()
-class StoryPage extends StatelessWidget {
+class StoryPage extends ConsumerWidget {
   const StoryPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -44,7 +45,9 @@ class StoryPage extends StatelessWidget {
               child: FilledButton(
                 child: const Text('交渉はじめる'),
                 onPressed: () {
-                  context.router.push(const ContractNegotiationRoute());
+                  ref
+                      .read(startConversationControllerProvider(context))
+                      .startConversation();
                 },
               ),
             ),
