@@ -1,4 +1,4 @@
-import 'package:app/feature/contract/controller/audio_play_controller.dart';
+import 'package:app/feature/contract/controller.dart';
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/router/app_router.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,6 @@ class ContractNegotiationPage extends HookConsumerWidget {
     final messages = ref.watch(messageListProvider(conversationId));
     final isDisplayingCutIn =
         ref.watch(isDisplayingCutInProvider(conversationId));
-    // final audioFile = ref.watch(audioFileProvider(conversationId));
 
     final scrollController = useScrollController();
     final focusNode = useFocusNode();
