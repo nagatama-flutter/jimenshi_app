@@ -1,0 +1,4 @@
+class: GenerativeAISpeechAudio
+fields:
+  text: String
+  audioFileUrl: String

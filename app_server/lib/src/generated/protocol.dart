@@ -22,11 +22,12 @@ import 'generative_ai/generative_ai_image.dart' as _i9;
 import 'generative_ai/generative_ai_message.dart' as _i10;
 import 'generative_ai/generative_ai_message_request.dart' as _i11;
 import 'generative_ai/generative_ai_message_type.dart' as _i12;
-import 'protocol.dart' as _i13;
+import 'generative_ai/generative_ai_speech_audio.dart' as _i13;
+import 'protocol.dart' as _i14;
 import 'package:app_server/src/generated/generative_ai/generative_ai_conversation.dart'
-    as _i14;
-import 'package:app_server/src/generated/generative_ai/generative_ai_message.dart'
     as _i15;
+import 'package:app_server/src/generated/generative_ai/generative_ai_message.dart'
+    as _i16;
 export 'error/internal_error.dart';
 export 'error/invalid_argument.dart';
 export 'error/unauthenticated.dart';
@@ -36,6 +37,7 @@ export 'generative_ai/generative_ai_image.dart';
 export 'generative_ai/generative_ai_message.dart';
 export 'generative_ai/generative_ai_message_request.dart';
 export 'generative_ai/generative_ai_message_type.dart';
+export 'generative_ai/generative_ai_speech_audio.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -231,6 +233,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i12.GenerativeAIMessageType) {
       return _i12.GenerativeAIMessageType.fromJson(data) as T;
     }
+    if (t == _i13.GenerativeAISpeechAudio) {
+      return _i13.GenerativeAISpeechAudio.fromJson(data) as T;
+    }
     if (t == _i1.getType<_i4.InternalError?>()) {
       return (data != null ? _i4.InternalError.fromJson(data) : null) as T;
     }
@@ -263,21 +268,25 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data != null ? _i12.GenerativeAIMessageType.fromJson(data) : null)
           as T;
     }
-    if (t == _i1.getType<List<_i13.GenerativeAIMessage>?>()) {
+    if (t == _i1.getType<_i13.GenerativeAISpeechAudio?>()) {
+      return (data != null ? _i13.GenerativeAISpeechAudio.fromJson(data) : null)
+          as T;
+    }
+    if (t == _i1.getType<List<_i14.GenerativeAIMessage>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i13.GenerativeAIMessage>(e))
+              .map((e) => deserialize<_i14.GenerativeAIMessage>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == List<_i14.GenerativeAIConversation>) {
+    if (t == List<_i15.GenerativeAIConversation>) {
       return (data as List)
-          .map((e) => deserialize<_i14.GenerativeAIConversation>(e))
+          .map((e) => deserialize<_i15.GenerativeAIConversation>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i15.GenerativeAIMessage>) {
+    if (t == List<_i16.GenerativeAIMessage>) {
       return (data as List)
-          .map((e) => deserialize<_i15.GenerativeAIMessage>(e))
+          .map((e) => deserialize<_i16.GenerativeAIMessage>(e))
           .toList() as dynamic;
     }
     try {
@@ -320,6 +329,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i12.GenerativeAIMessageType) {
       return 'GenerativeAIMessageType';
     }
+    if (data is _i13.GenerativeAISpeechAudio) {
+      return 'GenerativeAISpeechAudio';
+    }
     className = _i2.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod.$className';
@@ -359,6 +371,9 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (data['className'] == 'GenerativeAIMessageType') {
       return deserialize<_i12.GenerativeAIMessageType>(data['data']);
+    }
+    if (data['className'] == 'GenerativeAISpeechAudio') {
+      return deserialize<_i13.GenerativeAISpeechAudio>(data['data']);
     }
     if (data['className'].startsWith('serverpod.')) {
       data['className'] = data['className'].substring(10);

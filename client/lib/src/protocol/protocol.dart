@@ -20,12 +20,13 @@ import 'generative_ai/generative_ai_image.dart' as _i7;
 import 'generative_ai/generative_ai_message.dart' as _i8;
 import 'generative_ai/generative_ai_message_request.dart' as _i9;
 import 'generative_ai/generative_ai_message_type.dart' as _i10;
-import 'protocol.dart' as _i11;
+import 'generative_ai/generative_ai_speech_audio.dart' as _i11;
+import 'protocol.dart' as _i12;
 import 'package:client/src/protocol/generative_ai/generative_ai_conversation.dart'
-    as _i12;
-import 'package:client/src/protocol/generative_ai/generative_ai_message.dart'
     as _i13;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i14;
+import 'package:client/src/protocol/generative_ai/generative_ai_message.dart'
+    as _i14;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i15;
 export 'error/internal_error.dart';
 export 'error/invalid_argument.dart';
 export 'error/unauthenticated.dart';
@@ -35,6 +36,7 @@ export 'generative_ai/generative_ai_image.dart';
 export 'generative_ai/generative_ai_message.dart';
 export 'generative_ai/generative_ai_message_request.dart';
 export 'generative_ai/generative_ai_message_type.dart';
+export 'generative_ai/generative_ai_speech_audio.dart';
 export 'client.dart';
 
 class Protocol extends _i1.SerializationManager {
@@ -77,6 +79,9 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i10.GenerativeAIMessageType) {
       return _i10.GenerativeAIMessageType.fromJson(data) as T;
     }
+    if (t == _i11.GenerativeAISpeechAudio) {
+      return _i11.GenerativeAISpeechAudio.fromJson(data) as T;
+    }
     if (t == _i1.getType<_i2.InternalError?>()) {
       return (data != null ? _i2.InternalError.fromJson(data) : null) as T;
     }
@@ -109,25 +114,29 @@ class Protocol extends _i1.SerializationManager {
       return (data != null ? _i10.GenerativeAIMessageType.fromJson(data) : null)
           as T;
     }
-    if (t == _i1.getType<List<_i11.GenerativeAIMessage>?>()) {
+    if (t == _i1.getType<_i11.GenerativeAISpeechAudio?>()) {
+      return (data != null ? _i11.GenerativeAISpeechAudio.fromJson(data) : null)
+          as T;
+    }
+    if (t == _i1.getType<List<_i12.GenerativeAIMessage>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i11.GenerativeAIMessage>(e))
+              .map((e) => deserialize<_i12.GenerativeAIMessage>(e))
               .toList()
           : null) as dynamic;
     }
-    if (t == List<_i12.GenerativeAIConversation>) {
+    if (t == List<_i13.GenerativeAIConversation>) {
       return (data as List)
-          .map((e) => deserialize<_i12.GenerativeAIConversation>(e))
+          .map((e) => deserialize<_i13.GenerativeAIConversation>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i13.GenerativeAIMessage>) {
+    if (t == List<_i14.GenerativeAIMessage>) {
       return (data as List)
-          .map((e) => deserialize<_i13.GenerativeAIMessage>(e))
+          .map((e) => deserialize<_i14.GenerativeAIMessage>(e))
           .toList() as dynamic;
     }
     try {
-      return _i14.Protocol().deserialize<T>(data, t);
+      return _i15.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -163,7 +172,10 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i10.GenerativeAIMessageType) {
       return 'GenerativeAIMessageType';
     }
-    className = _i14.Protocol().getClassNameForObject(data);
+    if (data is _i11.GenerativeAISpeechAudio) {
+      return 'GenerativeAISpeechAudio';
+    }
+    className = _i15.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -199,9 +211,12 @@ class Protocol extends _i1.SerializationManager {
     if (data['className'] == 'GenerativeAIMessageType') {
       return deserialize<_i10.GenerativeAIMessageType>(data['data']);
     }
+    if (data['className'] == 'GenerativeAISpeechAudio') {
+      return deserialize<_i11.GenerativeAISpeechAudio>(data['data']);
+    }
     if (data['className'].startsWith('serverpod_auth.')) {
       data['className'] = data['className'].substring(15);
-      return _i14.Protocol().deserializeByClassName(data);
+      return _i15.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }

@@ -10,3 +10,5 @@ docker system prune -f
 docker compose up migrations
 # バックエンドサービスの起動
 docker compose up -d app https-portal
+# サーバーのログをtailする
+docker compose logs -f app
