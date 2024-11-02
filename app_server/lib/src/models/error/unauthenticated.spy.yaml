@@ -1,0 +1,3 @@
+exception: Unauthenticated
+fields:
+  error: String?

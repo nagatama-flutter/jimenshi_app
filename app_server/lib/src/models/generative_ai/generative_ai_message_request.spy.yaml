@@ -1,0 +1,4 @@
+class: GenerativeAIMessageRequest
+fields:
+  conversationId: int
+  content: String

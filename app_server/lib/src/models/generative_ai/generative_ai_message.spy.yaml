@@ -1,0 +1,9 @@
+class: GenerativeAIMessage
+table: generative_ai_message
+fields:
+  sessionId: UuidValue
+  conversationId: int, relation(name=generative_ai_conversation_generative_ai_message, parent=generative_ai_conversation)
+  aiModelName: String
+  messageType: GenerativeAIMessageType
+  content: String
+  createdAt: DateTime, default=now

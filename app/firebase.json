@@ -1,0 +1,49 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "nagatama-app-d39b8",
+          "appId": "1:1009203996064:android:505c5e6abb445c9890f0c5",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "nagatama-app-d39b8",
+          "appId": "1:1009203996064:ios:caccdedf30342cc790f0c5",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "nagatama-app-d39b8",
+          "appId": "1:1009203996064:ios:caccdedf30342cc790f0c5",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "nagatama-app-d39b8",
+          "configurations": {
+            "android": "1:1009203996064:android:505c5e6abb445c9890f0c5",
+            "ios": "1:1009203996064:ios:caccdedf30342cc790f0c5",
+            "macos": "1:1009203996064:ios:caccdedf30342cc790f0c5",
+            "web": "1:1009203996064:web:481422932811604990f0c5",
+            "windows": "1:1009203996064:web:581b08bea0da100990f0c5"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1009203996064",
+    "project_id": "nagatama-app-d39b8",
+    "storage_bucket": "nagatama-app-d39b8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009203996064:android:505c5e6abb445c9890f0c5",
+        "android_client_info": {
+          "package_name": "com.example.sample_pod_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009203996064-0732hdu38ed2980u0p93uhcpoum15p2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEFOshXd8bgg7jzzlc1VJDoodhRS52FuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009203996064-0732hdu38ed2980u0p93uhcpoum15p2v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1009203996064-v3bma3sn5qu0efefhnr36s50esjcalsl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.samplePodFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

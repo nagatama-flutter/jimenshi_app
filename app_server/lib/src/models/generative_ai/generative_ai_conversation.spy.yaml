@@ -1,0 +1,7 @@
+class: GenerativeAIConversation
+table: generative_ai_conversation
+fields:
+  user: module:auth:UserInfo?, relation
+  messages: List<GenerativeAIMessage>?, relation(name=generative_ai_conversation_generative_ai_message)
+  createdAt: DateTime, default=now
+  updatedAt: DateTime?

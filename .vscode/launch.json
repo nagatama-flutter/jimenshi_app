@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "name": "Run debug local",
+      "type": "dart",
+      "request": "launch",
+      "program": "app/lib/main.dart",
+      "args": ["--dart-define=FLAVOR=local"]
+    },
+    {
+      "name": "Run debug development",
+      "type": "dart",
+      "request": "launch",
+      "program": "app/lib/main.dart",
+      "args": ["--dart-define=FLAVOR=development"]
+    }
+  ]
+}

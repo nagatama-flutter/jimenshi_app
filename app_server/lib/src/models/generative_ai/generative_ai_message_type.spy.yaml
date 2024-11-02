@@ -1,0 +1,5 @@
+enum: GenerativeAIMessageType
+serialized: byName
+values:
+  - input
+  - output

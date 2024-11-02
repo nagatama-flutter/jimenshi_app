@@ -1,0 +1,25 @@
+actions:
+- changed-files:
+  - any-glob-to-any-file: ".github/**/*"
+
+app:
+- changed-files:
+  - any-glob-to-any-file: "app/**/*"
+
+client:
+- changed-files:
+  - any-glob-to-any-file: "client/**/*"
+
+server:
+- changed-files:
+  - any-glob-to-any-file: "app_server/**/*"
+ 
+tool:
+- changed-files:
+  - any-glob-to-any-file: "tools/**/*"
+  - any-glob-to-any-file: "scripts/**/*"
+
+config:
+- changed-files:
+  - any-glob-to-any-file: "melos.yaml"
+  - any-glob-to-any-file: "pubspec.*"

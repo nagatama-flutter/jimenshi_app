@@ -1,0 +1,42 @@
+name: jimenshi_app
+sdkPath: .fvm/flutter_sdk
+
+packages:
+  - app
+  - app_server
+  - client
+
+command:
+  bootstrap:
+    environment:
+      sdk: '>=3.3.0 <4.0.0'
+      flutter: '>=3.19.0'
+    dependencies:
+      serverpod: 2.1.4
+      serverpod_auth_server: 2.1.4
+      serverpod_auth_email_server: 2.1.4
+      serverpod_auth_email_flutter: 2.1.4
+      serverpod_auth_shared_flutter: 2.1.4
+      serverpod_auth_client: 2.1.4
+      serverpod_client: 2.1.4
+      serverpod_flutter: 2.1.4
+    dev_dependencies:
+      serverpod_cli: 2.1.4
+  
+scripts:
+  clean:
+    run: dart pub run melos exec -c 1 -- flutter clean
+  analyze:
+    run: dart pub run melos exec -c 1 -- flutter analyze > flutter_analyze_report.txt
+  build/web/dev:
+    run: dart pub run melos exec -c 1 -- flutter build web --release --dart-define=FLAVOR=development
+    packageFilters:
+      flutter: true
+  build_runner:
+    run: dart pub run melos exec -c 1 -- flutter pub run build_runner build --delete-conflicting-outputs
+    packageFilters:
+      dependsOn: build_runner
+  generate_barrel_files:
+    run: dart pub run melos exec -- "fvm dart run ../tools/generate_barrel_files.dart"
+    packageFilters:
+      flutter: true

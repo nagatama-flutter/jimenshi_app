@@ -1,0 +1,21 @@
+{
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/fvm/**": true,
+    "**/.fvm/**": true,
+    "**/.dart_tool/**": true,
+    "**/.pub-cache/**": true
+  },
+  "cSpell.ignoreWords": [
+    "riverpod",
+    "serverpod"
+  ],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  },
+  "dart.sdkPath": "./.fvm/versions/3.24.3",
+  "dart.flutterSdkPath": ".fvm/versions/3.24.3"
+}

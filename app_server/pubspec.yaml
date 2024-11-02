@@ -1,0 +1,19 @@
+name: app_server
+description: Starting point for a Serverpod server.
+# version: 1.0.0
+# homepage: https://www.example.com
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  dotenv: ^4.2.0
+  google_generative_ai: ^0.4.6
+  riverpod: ^2.5.1
+  sentry: ^8.9.0
+  serverpod: 2.1.4
+  serverpod_auth_server: 2.1.4
+
+dev_dependencies:
+  lints: ^5.0.0
+  serverpod_cli: 2.1.4

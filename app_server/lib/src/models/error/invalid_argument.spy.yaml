@@ -1,0 +1,3 @@
+exception: InvalidArgument
+fields:
+  error: String?

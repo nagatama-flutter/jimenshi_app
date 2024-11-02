@@ -1,0 +1,17 @@
+name: "setup-flutter"
+description: "Setup Flutter"
+runs:
+  using: "composite"
+  steps:
+    # https://github.com/kuhnroyal/flutter-fvm-config-action
+    - name: Fetch flutter config
+      uses: kuhnroyal/flutter-fvm-config-action/setup@v3.0
+  
+    - name: Setup melos
+      shell: bash
+      run: |
+        mkdir -p .fvm
+        ln -s $FLUTTER_ROOT .fvm/flutter_sdk
+        MELOS_VERSION=$(cat pubspec.lock | yq ".packages.melos.version" -r)
+        dart pub global activate melos $MELOS_VERSION
+        melos bootstrap
