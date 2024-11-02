@@ -10,6 +10,82 @@
 part of 'app_router.dart';
 
 /// generated route for
+/// [ContractDecisionPage]
+class ContractDecisionRoute extends PageRouteInfo<void> {
+  const ContractDecisionRoute({List<PageRouteInfo>? children})
+      : super(
+          ContractDecisionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ContractDecisionRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ContractDecisionPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ContractNegotiationPage]
+class ContractNegotiationRoute extends PageRouteInfo<void> {
+  const ContractNegotiationRoute({List<PageRouteInfo>? children})
+      : super(
+          ContractNegotiationRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ContractNegotiationRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ContractNegotiationPage();
+    },
+  );
+}
+
+/// generated route for
+/// [ContractResultFailurePage]
+class ContractResultFailureRoute extends PageRouteInfo<void> {
+  const ContractResultFailureRoute({List<PageRouteInfo>? children})
+      : super(
+          ContractResultFailureRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ContractResultFailureRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ContractResultFailurePage();
+    },
+  );
+}
+
+/// generated route for
+/// [ContractResultSuccessPage]
+class ContractResultSuccessRoute extends PageRouteInfo<void> {
+  const ContractResultSuccessRoute({List<PageRouteInfo>? children})
+      : super(
+          ContractResultSuccessRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ContractResultSuccessRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ContractResultSuccessPage();
+    },
+  );
+}
+
+/// generated route for
 /// [ExamplePage]
 class ExampleRoute extends PageRouteInfo<void> {
   const ExampleRoute({List<PageRouteInfo>? children})
@@ -42,7 +118,45 @@ class HomeRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return HomePage();
+      return const HomePage();
+    },
+  );
+}
+
+/// generated route for
+/// [OnboardingPage]
+class OnboardingRoute extends PageRouteInfo<void> {
+  const OnboardingRoute({List<PageRouteInfo>? children})
+      : super(
+          OnboardingRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'OnboardingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OnboardingPage();
+    },
+  );
+}
+
+/// generated route for
+/// [RootPage]
+class RootRoute extends PageRouteInfo<void> {
+  const RootRoute({List<PageRouteInfo>? children})
+      : super(
+          RootRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RootRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RootPage();
     },
   );
 }
@@ -81,6 +195,25 @@ class SignUpRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SignUpPage();
+    },
+  );
+}
+
+/// generated route for
+/// [StoryPage]
+class StoryRoute extends PageRouteInfo<void> {
+  const StoryRoute({List<PageRouteInfo>? children})
+      : super(
+          StoryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'StoryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const StoryPage();
     },
   );
 }
