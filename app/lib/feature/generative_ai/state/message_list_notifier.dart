@@ -20,7 +20,7 @@ class MessageListNotifier
       if (message is GenerativeAIMessage) {
         updateMessage(message);
       } else if (message is GenerativeAISpeechAudio) {
-        print('text to speech audio file: ${message.audioFileUrl}');
+        ref.read(audioFileProvider(arg).notifier).notify(message.audioFileUrl);
       } else if (message is GenerativeAICutIn) {
         ref.read(isDisplayingCutInProvider(arg).notifier).notify(true);
       }

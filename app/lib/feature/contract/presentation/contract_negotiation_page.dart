@@ -1,3 +1,4 @@
+import 'package:app/feature/contract/controller.dart';
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/router/app_router.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,9 @@ class ContractNegotiationPage extends HookConsumerWidget {
     final videoController = useMemoized(() {
       final controller = VideoPlayerController.asset(
         Assets.videos.simazakiNormal,
+        videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
       );
+
       controller.initialize().then((_) {
         controller
           ..setLooping(false)
@@ -46,6 +49,17 @@ class ContractNegotiationPage extends HookConsumerWidget {
         videoController.dispose();
       };
     }, [videoController]);
+
+    ref.listen(isDisplayingCutInProvider(conversationId), (_, __) {
+      focusNode.unfocus();
+    });
+
+    ref.listen(audioFileProvider(conversationId), (_, audioFile) async {
+      if (audioFile.isNotEmpty) {
+        videoController.play();
+        await ref.read(audioPlayControllerProvider).play(audioFile);
+      }
+    });
 
     ref.listen(messageListProvider(conversationId), (_, __) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -63,6 +77,7 @@ class ContractNegotiationPage extends HookConsumerWidget {
       body: Stack(
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
                 child: Stack(
@@ -77,9 +92,6 @@ class ContractNegotiationPage extends HookConsumerWidget {
                           child: VideoPlayer(videoController),
                         ),
                       ),
-                    ),
-                    const Center(
-                      child: Text(""),
                     ),
                     messages.maybeWhen(
                       data: (messages) {
@@ -168,27 +180,33 @@ class ContractNegotiationPage extends HookConsumerWidget {
           if (isDisplayingCutIn)
             Positioned.fill(
               child: ColoredBox(
-                color: Colors.black.withOpacity(0.5),
-                child: Center(
-                  child: Text(
-                    "もうええでしょ！！！！",
-                    style: Theme.of(context)
-                        .textTheme
-                        .text32Semibold
-                        .copyWith(color: Colors.white),
-                  ),
+                color: Colors.black.withOpacity(0.75),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "もうええでしょ！！！！",
+                      style: Theme.of(context)
+                          .textTheme
+                          .text32Semibold
+                          .copyWith(color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: FilledButton(
+                        onPressed: () {
+                          context.router.push(const ContractDecisionRoute());
+                        },
+                        child: const Text("つぎへ"),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          focusNode.unfocus();
-          context.router.push(const ContractDecisionRoute());
-        },
-        child: const Text("Next"),
       ),
     );
   }
