@@ -109,6 +109,21 @@ class GenerativeAIEndpoint extends Endpoint {
       final container = ProviderContainer();
       final modelName = container.read(geminiProvider).modelName;
 
+      print('message received. conversationId => ${message.conversationId}');
+      final messageCount = await GenerativeAIMessage.db.count(session,
+          where: (table) =>
+              table.conversationId.equals(message.conversationId));
+      print('message count => $messageCount');
+
+      if (messageCount >= (5 * 2)) {
+        // 10回質問したら「もうええでしょう！」
+        // TODO あせっているときは早く出すとか、感情的な判定処理を入れたいかも
+        print('max count of question.');
+        await sendStreamMessage(
+            session, GenerativeAICutIn(conversationId: message.conversationId));
+        return;
+      }
+
       final inputMessage = await GenerativeAIMessage.db.insertRow(
         session,
         GenerativeAIMessage(
@@ -187,7 +202,9 @@ class GenerativeAIEndpoint extends Endpoint {
           await sendStreamMessage(
               session,
               GenerativeAISpeechAudio(
-                  audioFileUrl: audioFileUrl, text: message.content));
+                  audioFileUrl: audioFileUrl,
+                  text: message.content,
+                  conversationId: message.conversationId));
         },
       );
     } else {
