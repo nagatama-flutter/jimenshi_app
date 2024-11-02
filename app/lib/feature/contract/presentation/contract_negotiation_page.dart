@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:app/feature/contract/presentation/widget/message_bubble.dart';
 
 @RoutePage()
 class ContractNegotiationPage extends HookConsumerWidget {
@@ -15,25 +16,52 @@ class ContractNegotiationPage extends HookConsumerWidget {
     return Scaffold(
       body: Column(
         children: [
-          const Expanded(
-            child: Center(
-              child: Text("ContractNegotiationPage"),
+          Expanded(
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  left: 16,
+                  child: ListView.separated(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    reverse: true,
+                    itemBuilder: (context, index) {
+                      return MessageBubble(
+                        isMine: index % 2 == 0,
+                        message:
+                            "message messagemessagemessagemessagemessagemessagemessagemessagemessagemessagemessagemessage $index",
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
+                    itemCount: 50,
+                  ),
+                ),
+                const Center(
+                  child: Text("ContractNegotiationPage"),
+                ),
+              ],
             ),
           ),
-          const Divider(),
+          const Divider(height: 1),
           SafeArea(
             top: false,
             child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               decoration: BoxDecoration(color: Theme.of(context).cardColor),
               child: Row(
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      focusNode: focusNode,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxHeight: 160),
+                      child: TextFormField(
+                        maxLines: null,
+                        keyboardType: TextInputType.multiline,
+                        focusNode: focusNode,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        onTapOutside: (event) => focusNode.unfocus(),
                       ),
-                      onTapOutside: (event) => focusNode.unfocus(),
                     ),
                   ),
                   IconButton(
