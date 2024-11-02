@@ -180,10 +180,14 @@ class GenerativeAIEndpoint extends Endpoint {
           );
 
           // テキストを音声へ変換しURLを取得
-          final audioUrl = await tts(content);
+          final audioFileUrl = await tts(content);
 
-          print('audio url: $audioUrl');
-          // TODO クライアントにWebSocketで通知して、クライアント側で音声を再生
+          print('audio url: $audioFileUrl');
+          // クライアントにWebSocketで通知して、クライアント側で音声を再生
+          await sendStreamMessage(
+              session,
+              GenerativeAISpeechAudio(
+                  audioFileUrl: audioFileUrl, text: message.content));
         },
       );
     } else {

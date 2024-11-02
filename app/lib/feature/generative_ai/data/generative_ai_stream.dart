@@ -11,6 +11,8 @@ final _dataStreamProvider =
   await for (final message in endpoint.stream) {
     if (message is GenerativeAIMessage) {
       yield message;
+    } else if (message is GenerativeAISpeechAudio) {
+      print('text to speech audio file: ${message.audioFileUrl}');
     }
   }
 });
