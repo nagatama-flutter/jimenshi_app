@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
 @RoutePage()
-class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({super.key});
+class StartPage extends StatelessWidget {
+  const StartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +15,25 @@ class OnboardingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'オンボーディング',
+            '地面師を見破れ',
             style: Theme.of(context).textTheme.text32Semibold,
             textAlign: TextAlign.center,
           ),
+          const SizedBox(height: 24),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: SizedBox(
+              height: 200,
+              child: Placeholder(),
+            ),
+          ),
+          const SizedBox(height: 60),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: FilledButton(
               child: const Text('はじめる'),
               onPressed: () {
-                context.router.push(const StoryRoute());
+                context.router.push(const OnboardingRoute());
               },
             ),
           ),
