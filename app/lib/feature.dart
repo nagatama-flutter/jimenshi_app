@@ -1,6 +1,7 @@
 export 'feature/auth.dart';
 export 'feature/contract.dart';
 export 'feature/firebase.dart';
+export 'feature/generative_ai.dart';
 export 'feature/image.dart';
 export 'feature/onboarding.dart';
 export 'feature/root.dart';
