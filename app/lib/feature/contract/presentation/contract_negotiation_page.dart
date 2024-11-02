@@ -47,6 +47,10 @@ class ContractNegotiationPage extends HookConsumerWidget {
       };
     }, [videoController]);
 
+    ref.listen(isDisplayingCutInProvider(conversationId), (_, __) {
+      focusNode.unfocus();
+    });
+
     ref.listen(messageListProvider(conversationId), (_, __) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (scrollController.hasClients) {
@@ -168,27 +172,33 @@ class ContractNegotiationPage extends HookConsumerWidget {
           if (isDisplayingCutIn)
             Positioned.fill(
               child: ColoredBox(
-                color: Colors.black.withOpacity(0.5),
-                child: Center(
-                  child: Text(
-                    "もうええでしょ！！！！",
-                    style: Theme.of(context)
-                        .textTheme
-                        .text32Semibold
-                        .copyWith(color: Colors.white),
-                  ),
+                color: Colors.black.withOpacity(0.75),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      "もうええでしょ！！！！",
+                      style: Theme.of(context)
+                          .textTheme
+                          .text32Semibold
+                          .copyWith(color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: FilledButton(
+                        onPressed: () {
+                          context.router.push(const ContractDecisionRoute());
+                        },
+                        child: const Text("つぎへ"),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          focusNode.unfocus();
-          context.router.push(const ContractDecisionRoute());
-        },
-        child: const Text("Next"),
       ),
     );
   }
