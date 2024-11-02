@@ -1,3 +1,4 @@
+import 'package:app/data/story.dart';
 import 'package:app/router/app_router.dart';
 import 'package:app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class OnboardingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     const Text(
-                      'ここにゲーム説明が入ります。ここにゲーム説明が入ります。ここにゲーム説明が入ります。ここにゲーム説明が入ります。ここにゲーム説明が入ります。ここにゲーム説明が入ります。ここにゲーム説明が入ります。ここにゲーム説明が入ります。ここにゲーム説明が入ります。ここにゲーム説明が入ります。',
+                      gameDiscription,
                     ),
                   ],
                 ),
