@@ -22,7 +22,7 @@ abstract interface class SentryConfig {
 class SentryLocalConfig implements SentryConfig {
   @override
   String get dsn =>
-      'https://293c0f96d0dc9e6229a5bd2e8023fce9@o4508132802691072.ingest.us.sentry.io/4508132851712000';
+      'https://78d6a92b2b3048ce9f73ccf62fff32ef@o4508226845016064.ingest.us.sentry.io/4508226873393152';
   @override
   double get tracesSampleRate => 0.0;
   @override
@@ -32,7 +32,7 @@ class SentryLocalConfig implements SentryConfig {
 class SentryDevelopmentConfig implements SentryConfig {
   @override
   String get dsn =>
-      'https://293c0f96d0dc9e6229a5bd2e8023fce9@o4508132802691072.ingest.us.sentry.io/4508132851712000';
+      'https://78d6a92b2b3048ce9f73ccf62fff32ef@o4508226845016064.ingest.us.sentry.io/4508226873393152';
   @override
   double get tracesSampleRate => 0.0;
   @override
