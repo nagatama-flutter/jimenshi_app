@@ -23,11 +23,6 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        // AutoRoute(
-        //   page: HomeRoute.page,
-        //   guards: [authRouteGuard],
-        //   initial: true,
-        // ),
         AutoRoute(
           page: RootRoute.page,
           guards: [authRouteGuard],

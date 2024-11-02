@@ -35,7 +35,7 @@ class EmailAuthController {
         .signIn(email: email, password: password);
 
     if (result && _context.mounted) {
-      _context.router.replaceAll([const HomeRoute()]);
+      _context.router.replaceAll([const OnboardingRoute()]);
     }
   }
 }
