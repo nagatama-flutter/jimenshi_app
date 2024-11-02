@@ -7,3 +7,4 @@
 
 # Melos related
 pubspec_overrides.yaml.env*
+app_server/.pgdata
