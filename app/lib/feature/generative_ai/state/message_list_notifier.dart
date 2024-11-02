@@ -1,6 +1,7 @@
 import 'package:app/data.dart';
 import 'package:app/feature/generative_ai/data.dart';
 import 'package:app/feature/generative_ai/domain.dart';
+import 'package:app/feature/generative_ai/state.dart';
 import 'package:client/sample_pod_client.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,8 +16,14 @@ class MessageListNotifier
     extends AutoDisposeFamilyAsyncNotifier<List<Message>, ConversationId> {
   @override
   Future<List<Message>> build(ConversationId arg) async {
-    ref.listen(generativeAIStreamProvider(arg), (_, stream) {
-      stream.listen(_updateMessage);
+    ref.watch(dataStreamNotifierProvider).stream.listen((message) {
+      if (message is GenerativeAIMessage) {
+        updateMessage(message);
+      } else if (message is GenerativeAISpeechAudio) {
+        print('text to speech audio file: ${message.audioFileUrl}');
+      } else if (message is GenerativeAICutIn) {
+        ref.read(isDisplayingCutInProvider(arg).notifier).notify(true);
+      }
     });
 
     final response = await ref
@@ -27,7 +34,7 @@ class MessageListNotifier
     return response.map((e) => e.toMessage()).toList();
   }
 
-  Future<void> _updateMessage(GenerativeAIMessage message) async {
+  Future<void> updateMessage(GenerativeAIMessage message) async {
     state.whenData((value) {
       if (value.isEmpty) {
         state = AsyncValue.data([message.toMessage()]);
