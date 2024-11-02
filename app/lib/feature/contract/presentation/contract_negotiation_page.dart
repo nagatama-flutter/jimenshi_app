@@ -103,14 +103,18 @@ class ContractNegotiationPage extends HookConsumerWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       focusNode.unfocus();
                       if (textEditingController.text.isEmpty) {
                         return;
                       }
 
-                      ref.read(postMessageControllerProvider).postMessage(
+                      await ref.read(postMessageControllerProvider).postMessage(
                           conversationId, textEditingController.text, null);
+
+                      if (context.mounted) {
+                        textEditingController.clear();
+                      }
                     },
                     icon: const Icon(Icons.send),
                   ),
