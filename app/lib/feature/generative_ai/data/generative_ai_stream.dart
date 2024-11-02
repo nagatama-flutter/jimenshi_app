@@ -13,6 +13,8 @@ final _dataStreamProvider =
       yield message;
     } else if (message is GenerativeAISpeechAudio) {
       print('text to speech audio file: ${message.audioFileUrl}');
+    } else if (message is GenerativeAICutIn) {
+      print('call cut in.');
     }
   }
 });

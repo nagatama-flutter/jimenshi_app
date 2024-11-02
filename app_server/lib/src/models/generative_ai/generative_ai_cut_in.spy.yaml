@@ -1,0 +1,3 @@
+class: GenerativeAICutIn
+fields:
+  conversationId: int
