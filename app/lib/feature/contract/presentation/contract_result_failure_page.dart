@@ -11,28 +11,55 @@ class ContractResultFailurePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
         children: [
-          Text(
-            "見破り失敗！！！",
-            style: Theme.of(context).textTheme.text32Semibold,
-            textAlign: TextAlign.center,
+          // フルスクリーンの失敗画像
+          Positioned.fill(
+            child: Assets.images.failure.image(
+              fit: BoxFit.cover,
+            ),
           ),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 200,
-            child: Assets.images.failure.image(),
+          // 必要に応じて半透明のオーバーレイを追加（視認性向上のため）
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.3), // 30%の黒いオーバーレイ
+            ),
           ),
-          const SizedBox(height: 48),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: FilledButton(
-              child: const Text("もう一度挑戦する"),
-              onPressed: () {
-                context.router.replaceAll([const OnboardingRoute()]);
-              },
+          // コンテンツを中央に配置
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // コンテンツを必要最低限の高さに
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    "見破り失敗！！！",
+                    style: Theme.of(context)
+                        .textTheme
+                        .text32Semibold
+                        .copyWith(color: Colors.white), // テキスト色を白に設定
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Colors.redAccent.withOpacity(0.8),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
+                      "もう一度挑戦する",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                    onPressed: () {
+                      context.router.replaceAll([const OnboardingRoute()]);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],

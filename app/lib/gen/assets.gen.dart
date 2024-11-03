@@ -56,19 +56,18 @@ class $GoogleFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/correct.jpeg
-  AssetGenImage get correct =>
-      const AssetGenImage('assets/images/correct.jpeg');
+  /// File path: assets/images/correct.png
+  AssetGenImage get correct => const AssetGenImage('assets/images/correct.png');
 
-  /// File path: assets/images/failure.jpg
-  AssetGenImage get failure => const AssetGenImage('assets/images/failure.jpg');
+  /// File path: assets/images/failure.png
+  AssetGenImage get failure => const AssetGenImage('assets/images/failure.png');
 
   /// File path: assets/images/halison.png
   AssetGenImage get halison => const AssetGenImage('assets/images/halison.png');
 
-  /// File path: assets/images/simazaki.jpg
+  /// File path: assets/images/simazaki.png
   AssetGenImage get simazaki =>
-      const AssetGenImage('assets/images/simazaki.jpg');
+      const AssetGenImage('assets/images/simazaki.png');
 
   /// File path: assets/images/tower.jpg
   AssetGenImage get tower => const AssetGenImage('assets/images/tower.jpg');
