@@ -3,4 +3,4 @@ fields:
   conversationId: int
   text: String
   audioFileUrl: String
-  sentiment: String
+  sentiment: String?
