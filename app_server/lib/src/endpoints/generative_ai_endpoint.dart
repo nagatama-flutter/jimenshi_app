@@ -72,7 +72,7 @@ class GenerativeAIEndpoint extends Endpoint {
     return result.messages ?? [];
   }
 
-  Future<String> tts(String text) async {
+  Future<GenerativeAISpeechAudio> tts(String text, int conversationId) async {
     final endpoint = ProviderContainer().read(configProvider).ttsApuEndpoint;
     final token = ProviderContainer().read(configProvider).ttsApiToken;
     print('access to $endpoint');
@@ -84,12 +84,17 @@ class GenerativeAIEndpoint extends Endpoint {
       },
       body: jsonEncode({
         'text': text,
+        'comprehend': true,
       }),
     );
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body);
       print('Text to speech: ${result['speech']}');
-      return result['speech'];
+      return GenerativeAISpeechAudio(
+          audioFileUrl: result['speech'],
+          text: text,
+          conversationId: conversationId,
+          sentiment: result['Sentiment']);
     } else {
       print('Failed to create speech audio.');
       print('status: ${response.statusCode}');
@@ -195,16 +200,10 @@ class GenerativeAIEndpoint extends Endpoint {
           );
 
           // テキストを音声へ変換しURLを取得
-          final audioFileUrl = await tts(content);
+          final result = await tts(content, message.conversationId);
 
-          print('audio url: $audioFileUrl');
           // クライアントにWebSocketで通知して、クライアント側で音声を再生
-          await sendStreamMessage(
-              session,
-              GenerativeAISpeechAudio(
-                  audioFileUrl: audioFileUrl,
-                  text: message.content,
-                  conversationId: message.conversationId));
+          await sendStreamMessage(session, result);
         },
       );
     } else {
