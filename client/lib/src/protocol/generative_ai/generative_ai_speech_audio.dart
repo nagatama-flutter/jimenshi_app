@@ -16,14 +16,14 @@ abstract class GenerativeAISpeechAudio implements _i1.SerializableModel {
     required this.conversationId,
     required this.text,
     required this.audioFileUrl,
-    required this.sentiment,
+    this.sentiment,
   });
 
   factory GenerativeAISpeechAudio({
     required int conversationId,
     required String text,
     required String audioFileUrl,
-    required String sentiment,
+    String? sentiment,
   }) = _GenerativeAISpeechAudioImpl;
 
   factory GenerativeAISpeechAudio.fromJson(
@@ -32,7 +32,7 @@ abstract class GenerativeAISpeechAudio implements _i1.SerializableModel {
       conversationId: jsonSerialization['conversationId'] as int,
       text: jsonSerialization['text'] as String,
       audioFileUrl: jsonSerialization['audioFileUrl'] as String,
-      sentiment: jsonSerialization['sentiment'] as String,
+      sentiment: jsonSerialization['sentiment'] as String?,
     );
   }
 
@@ -42,7 +42,7 @@ abstract class GenerativeAISpeechAudio implements _i1.SerializableModel {
 
   String audioFileUrl;
 
-  String sentiment;
+  String? sentiment;
 
   GenerativeAISpeechAudio copyWith({
     int? conversationId,
@@ -56,7 +56,7 @@ abstract class GenerativeAISpeechAudio implements _i1.SerializableModel {
       'conversationId': conversationId,
       'text': text,
       'audioFileUrl': audioFileUrl,
-      'sentiment': sentiment,
+      if (sentiment != null) 'sentiment': sentiment,
     };
   }
 
@@ -66,12 +66,14 @@ abstract class GenerativeAISpeechAudio implements _i1.SerializableModel {
   }
 }
 
+class _Undefined {}
+
 class _GenerativeAISpeechAudioImpl extends GenerativeAISpeechAudio {
   _GenerativeAISpeechAudioImpl({
     required int conversationId,
     required String text,
     required String audioFileUrl,
-    required String sentiment,
+    String? sentiment,
   }) : super._(
           conversationId: conversationId,
           text: text,
@@ -84,13 +86,13 @@ class _GenerativeAISpeechAudioImpl extends GenerativeAISpeechAudio {
     int? conversationId,
     String? text,
     String? audioFileUrl,
-    String? sentiment,
+    Object? sentiment = _Undefined,
   }) {
     return GenerativeAISpeechAudio(
       conversationId: conversationId ?? this.conversationId,
       text: text ?? this.text,
       audioFileUrl: audioFileUrl ?? this.audioFileUrl,
-      sentiment: sentiment ?? this.sentiment,
+      sentiment: sentiment is String? ? sentiment : this.sentiment,
     );
   }
 }

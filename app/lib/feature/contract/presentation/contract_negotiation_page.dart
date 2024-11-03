@@ -50,6 +50,8 @@ class ContractNegotiationPage extends HookConsumerWidget {
       };
     }, [videoController]);
 
+    useListenable(videoController);
+
     ref.listen(isDisplayingCutInProvider(conversationId), (_, __) {
       focusNode.unfocus();
     });
