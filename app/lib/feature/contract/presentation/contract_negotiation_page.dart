@@ -190,35 +190,75 @@ class ContractNegotiationPage extends HookConsumerWidget {
           ),
           if (isDisplayingCutIn)
             Positioned.fill(
-              child: ColoredBox(
-                color: Colors.black.withOpacity(0.75),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      "もうええでしょ！！！！",
-                      style: Theme.of(context)
-                          .textTheme
-                          .text32Semibold
-                          .copyWith(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: FilledButton(
-                        onPressed: () {
-                          context.router.push(const ContractDecisionRoute());
-                        },
-                        child: const Text("つぎへ"),
+              child: Stack(
+                children: [
+                  const Positioned.fill(
+                    child: _CutInContainer(),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "もうええでしょ！！！！",
+                        style: Theme.of(context)
+                            .textTheme
+                            .text32Semibold
+                            .copyWith(color: Colors.white),
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                  ],
-                ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: FilledButton(
+                          onPressed: () {
+                            context.router.push(const ContractDecisionRoute());
+                          },
+                          child: const Text("つぎへ"),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
         ],
       ),
+    );
+  }
+}
+
+class _CutInContainer extends HookWidget {
+  const _CutInContainer();
+
+  @override
+  Widget build(BuildContext context) {
+    // VideoPlayerControllerの初期化
+    final videoController = useMemoized(() {
+      final controller = VideoPlayerController.asset(
+        Assets.videos.cutIn,
+        videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
+      );
+
+      controller.initialize().then((_) {
+        controller
+          ..setLooping(false)
+          ..setVolume(1.0)
+          ..play();
+      });
+      return controller;
+    });
+
+    // VideoPlayerControllerの破棄
+    useEffect(() {
+      return () {
+        videoController.dispose();
+      };
+    }, [videoController]);
+
+    return SizedBox(
+      width: videoController.value.size.width,
+      height: videoController.value.size.height,
+      child: VideoPlayer(videoController),
     );
   }
 }

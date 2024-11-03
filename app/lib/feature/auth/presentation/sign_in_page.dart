@@ -17,8 +17,8 @@ class SignInPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useMemoized(() => GlobalKey<FormState>());
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
+    final emailController = useTextEditingController(text: 'test@example.com');
+    final passwordController = useTextEditingController(text: 'pass1234');
     final passwordFocusNode = useFocusNode();
     final isHidePassword = useState(true);
     final isLoading = useState(false);
@@ -95,6 +95,8 @@ class SignInPage extends HookConsumerWidget {
                       return;
                     }
 
+                    FocusScope.of(context).unfocus();
+
                     runWithLoading(
                       () async => ref
                           .read(emailAuthControllerProvider(context))
@@ -109,6 +111,7 @@ class SignInPage extends HookConsumerWidget {
                   label: const Text('Googleでサインイン'),
                   icon: const Text('G'),
                   onPressed: () {
+                    FocusScope.of(context).unfocus();
                     runWithLoading(
                       () async => ref
                           .read(googleAuthControllerProvider(context))
