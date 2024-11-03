@@ -12,9 +12,9 @@ dependencies:
   http: ^1.2.2
   riverpod: ^2.5.1
   sentry: ^8.9.0
-  serverpod: 2.1.4
-  serverpod_auth_server: 2.1.4
+  serverpod: 2.1.5
+  serverpod_auth_server: 2.1.5
 
 dev_dependencies:
   lints: ^5.0.0
-  serverpod_cli: 2.1.4
+  serverpod_cli: 2.1.5
