@@ -25,7 +25,25 @@ class StartPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: SizedBox(
               height: 200,
-              child: Assets.images.tower.image(),
+              child: Stack(
+                children: [
+                  // ベースの塔の画像
+                  Assets.images.tower.image(
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                  // 重ねるハリソンの画像（半透明に設定）
+                  Opacity(
+                    opacity: 0.5, // 透明度を50%に設定
+                    child: Assets.images.halison.image(
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 60),
