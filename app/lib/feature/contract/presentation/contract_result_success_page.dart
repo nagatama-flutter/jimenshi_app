@@ -11,28 +11,57 @@ class ContractResultSuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
         children: [
-          Text(
-            "見破り成功！！！",
-            style: Theme.of(context).textTheme.text32Semibold,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            height: 200,
-            child: Assets.images.correct.image(),
-          ),
-          const SizedBox(height: 48),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: FilledButton(
-              child: const Text("勝利を噛み締めて次のゲームをプレイ"),
-              onPressed: () {
-                context.router.replaceAll([const OnboardingRoute()]);
+          // フルスクリーンの正しい画像
+          Positioned.fill(
+            child: Assets.images.correct.image(
+              fit: BoxFit.cover,
+              // エラーハンドリング（オプション）
+              errorBuilder: (context, error, stackTrace) {
+                return const Center(
+                  child: Icon(Icons.error, color: Colors.red, size: 50),
+                );
               },
+            ),
+          ),
+          // コンテンツのオーバーレイ
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // コンテンツを必要最低限の高さに
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    "見破り成功！！！",
+                    style: Theme.of(context)
+                        .textTheme
+                        .text32Semibold
+                        .copyWith(color: Colors.white), // テキスト色を白に設定
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Colors.green.withOpacity(0.8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text("勝利を噛み締めて次のゲームをプレイ"),
+                    onPressed: () {
+                      context.router.replaceAll([const OnboardingRoute()]);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // オプション: テキストの視認性を高めるための半透明オーバーレイ
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.3), // 透明度30%の黒色オーバーレイ
             ),
           ),
         ],

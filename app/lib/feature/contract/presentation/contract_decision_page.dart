@@ -17,14 +17,19 @@ class ContractDecisionPage extends HookConsumerWidget {
     return Scaffold(
       body: Stack(
         children: [
+          // フルスクリーンの背景画像
           Positioned.fill(
-            child: DecoratedBox(
-              decoration: const BoxDecoration(),
-              child: Center(
-                child: Assets.images.simazaki.image(),
-              ),
+            child: Assets.images.simazaki.image(
+              fit: BoxFit.cover,
             ),
           ),
+          // 必要に応じて半透明のオーバーレイを追加（視認性向上のため）
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.3), // 30%の黒いオーバーレイ
+            ),
+          ),
+          // ボトムに配置するボタン
           Positioned(
             bottom: 0,
             left: 0,
@@ -60,7 +65,7 @@ class ContractDecisionPage extends HookConsumerWidget {
                         ),
                       ),
                       onPressed: () {
-                        context.router.push(const ContractResultSuccessRoute());
+                        context.router.push(const ContractResultFailureRoute());
                       },
                       child: const Text("否認"),
                     ),
@@ -94,19 +99,23 @@ class ContractDecisionPage extends HookConsumerWidget {
                 ),
               ),
             ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(top: 8),
-        child: FloatingActionButton(
-          child: Icon(
-            isDisplayingHistory.value ? Icons.close : Icons.message_outlined,
+          // フローティングアクションボタン
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 16,
+            right: 16,
+            child: FloatingActionButton(
+              backgroundColor: Colors.blueAccent,
+              child: Icon(
+                isDisplayingHistory.value
+                    ? Icons.close
+                    : Icons.message_outlined,
+              ),
+              onPressed: () {
+                isDisplayingHistory.value = !isDisplayingHistory.value;
+              },
+            ),
           ),
-          onPressed: () {
-            isDisplayingHistory.value = !isDisplayingHistory.value;
-          },
-        ),
+        ],
       ),
     );
   }
