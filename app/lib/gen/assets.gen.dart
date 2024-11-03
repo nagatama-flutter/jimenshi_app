@@ -56,11 +56,26 @@ class $GoogleFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/correct.jpeg
+  AssetGenImage get correct =>
+      const AssetGenImage('assets/images/correct.jpeg');
+
+  /// File path: assets/images/failure.jpg
+  AssetGenImage get failure => const AssetGenImage('assets/images/failure.jpg');
+
+  /// File path: assets/images/halison.png
+  AssetGenImage get halison => const AssetGenImage('assets/images/halison.png');
+
+  /// File path: assets/images/simazaki.jpg
+  AssetGenImage get simazaki =>
+      const AssetGenImage('assets/images/simazaki.jpg');
+
   /// File path: assets/images/tower.jpg
   AssetGenImage get tower => const AssetGenImage('assets/images/tower.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [tower];
+  List<AssetGenImage> get values =>
+      [correct, failure, halison, simazaki, tower];
 }
 
 class $AssetsVideosGen {

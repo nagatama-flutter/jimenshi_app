@@ -62,6 +62,10 @@ flutter:
   assets:
     - google_fonts/
     - assets/images/tower.jpg
+    - assets/images/correct.jpeg
+    - assets/images/failure.jpg
+    - assets/images/halison.png
+    - assets/images/simazaki.jpg
     - assets/videos/background.mp4
     - assets/videos/simazaki_juggling.mp4
     - assets/videos/simazaki_normal.mp4
