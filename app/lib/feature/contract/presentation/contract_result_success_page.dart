@@ -1,3 +1,4 @@
+import 'package:app/gen/assets.gen.dart';
 import 'package:app/router/app_router.dart';
 import 'package:app/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,9 @@ class ContractResultSuccessPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
-          const SizedBox(
+          SizedBox(
             height: 200,
-            child: Placeholder(),
+            child: Assets.images.correct.image(),
           ),
           const SizedBox(height: 48),
           Padding(

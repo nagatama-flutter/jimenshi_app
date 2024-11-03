@@ -1,3 +1,4 @@
+import 'package:app/gen/assets.gen.dart';
 import 'package:app/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
@@ -16,11 +17,11 @@ class ContractDecisionPage extends HookConsumerWidget {
     return Scaffold(
       body: Stack(
         children: [
-          const Positioned.fill(
+          Positioned.fill(
             child: DecoratedBox(
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Center(
-                child: Text("ContractDecisionPage"),
+                child: Assets.images.simazaki.image(),
               ),
             ),
           ),
@@ -45,7 +46,7 @@ class ContractDecisionPage extends HookConsumerWidget {
                       ),
                       child: const Text("承認"),
                       onPressed: () {
-                        context.router.push(const ContractResultSuccessRoute());
+                        context.router.push(const ContractResultFailureRoute());
                       },
                     ),
                   ),
@@ -59,7 +60,7 @@ class ContractDecisionPage extends HookConsumerWidget {
                         ),
                       ),
                       onPressed: () {
-                        context.router.push(const ContractResultFailureRoute());
+                        context.router.push(const ContractResultSuccessRoute());
                       },
                       child: const Text("否認"),
                     ),
