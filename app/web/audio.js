@@ -27,7 +27,7 @@ async function playSound(audio, volume = 1, loop = false) {
   })
 }
 
-export function playSoundWithControl(audio, fn) {
+function playSoundWithControl(audio, fn) {
   const myAudio = new Audio(audio)
   myAudio.volume = 0.1
   myAudio.addEventListener('ended', () => {

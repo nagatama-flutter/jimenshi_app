@@ -1,11 +1,6 @@
-import 'package:app/feature/web/js_handler.dart'
-    if (dart.library.io) 'package:app/feature/web/js_handler_for_mobile.dart'
-    if (dart.library.html) 'package:app/feature/web/js_handler_for_web.dart';
-
 import 'package:app/gen/assets.gen.dart';
 import 'package:app/router/app_router.dart';
 import 'package:app/theme/app_theme.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
@@ -81,13 +76,6 @@ class StartPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (kIsWeb) {
-            runJavaScript('jsTestFunction', 'DartからJavascriptを呼び出しました！');
-          }
-        },
       ),
     );
   }
