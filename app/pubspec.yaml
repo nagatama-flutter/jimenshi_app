@@ -29,7 +29,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.5
-  hooks_riverpod: ^2.5.4
+  hooks_riverpod: ^2.6.1
   serverpod_flutter: 2.1.4
   serverpod_auth_email_flutter: 2.1.4
   serverpod_auth_shared_flutter: 2.1.4
